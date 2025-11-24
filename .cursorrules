@@ -1,0 +1,20 @@
+# Cursor Tasks for Car RAG Project
+
+## Task: ingest
+Run the data ingestion and embedding pipeline:
+```bash
+python backend/rag/loader.py && python backend/rag/embed.py --recreate
+```
+
+## Task: start
+Start the FastAPI server:
+```bash
+uvicorn backend.main:app --reload --port 8000
+```
+
+## Task: test
+Run pytest tests:
+```bash
+pytest -q
+```
+
