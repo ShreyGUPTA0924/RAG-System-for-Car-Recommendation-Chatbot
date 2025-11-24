@@ -31,6 +31,20 @@ def test_collection():
     sample_cars = create_sample_cars_data()
     
     # Initialize Qdrant client
+    # Quick check: skip tests if Qdrant is not reachable
+    from urllib.parse import urlparse
+    import socket
+
+    parsed = urlparse(TEST_QDRANT_URL)
+    host = parsed.hostname or "localhost"
+    port = parsed.port or 6333
+
+    try:
+        sock = socket.create_connection((host, port), timeout=2)
+        sock.close()
+    except Exception:
+        pytest.skip(f"Qdrant not available at {TEST_QDRANT_URL}; skipping end-to-end tests")
+
     client = QdrantClient(url=TEST_QDRANT_URL)
     
     # Delete collection if exists
